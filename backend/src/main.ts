@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
+import * as session from 'express-session';
 
 config();
 
@@ -16,6 +17,15 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api', app, document);
+
+  app.use(
+    session({
+      secret: 'apUXCM9XzGdnV9ne',
+      resave: false,
+      saveUninitialized: false,
+    }),
+  );
+  app.enableCors({ origin: 'http://localhost:4200', credentials: true });
 
   await app.listen(3000);
 }

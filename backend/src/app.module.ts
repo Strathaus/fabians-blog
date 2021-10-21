@@ -2,9 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
-import { GoogleService } from './controller/authentication/authentication-strategies/google.service';
-import { GoogleStrategy } from './controller/authentication/authentication-strategies/google.strategy';
-import { AuthenticationController } from './controller/authentication/authentication.controller';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 @Module({
   imports: [
@@ -13,12 +11,13 @@ import { AuthenticationController } from './controller/authentication/authentica
         uri: process.env.MONGODB_URL,
       }),
     }),
+    AuthenticationModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'webapp', 'dist'),
       exclude: ['/api*'],
     }),
   ],
-  controllers: [AuthenticationController],
-  providers: [GoogleService, GoogleStrategy],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

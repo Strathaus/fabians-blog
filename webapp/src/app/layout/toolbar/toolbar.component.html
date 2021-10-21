@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <span class="spacer"></span>
+  Fabian's Blog
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="globalStateService.user | async">
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <img [src]="(globalStateService.user | async)?.picture" height="32" width="32" />
+    </button>
+    <mat-menu #userMenu>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon> Logout
+      </button>
+    </mat-menu>
+  </ng-container>
+
+</mat-toolbar>

@@ -1,3 +1,10 @@
-<mat-toolbar>Fabian's Blog</mat-toolbar>
+<app-toolbar></app-toolbar>
 
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [opened]="true">
+    <app-sidenav></app-sidenav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
