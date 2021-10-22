@@ -1,0 +1,19 @@
+<h1>New Blog Entry</h1>
+
+<form [formGroup]="_blogForm">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Text</mat-label>
+    <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
+  </mat-form-field>
+
+  <button mat-stroked-button color="primary" (click)="createBlogEntry()">
+    <mat-icon>send</mat-icon> Posten!
+  </button>
+
+</form>

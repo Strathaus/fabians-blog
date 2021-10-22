@@ -1,7 +1,10 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { GoogleUser, GoogleUserDocument } from 'src/models/user/google-user';
+import {
+  GoogleUser,
+  GoogleUserDocument,
+} from './../../models/user/google-user';
 
 @Injectable()
 export class GoogleService {

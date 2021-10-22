@@ -1,0 +1,13 @@
+<h1>Blog
+  <span class="spacer"></span>
+</h1>
+<a mat-icon-button [routerLink]="['new']">
+  <mat-icon>add</mat-icon>
+</a>
+
+<mat-card *ngFor="let blogEntry of blogEntries">
+  <mat-card-title-group>
+    <mat-card-title>{{blogEntry.title}}</mat-card-title>
+    <mat-card-title>{{blogEntry.createdAt | date}}</mat-card-title>
+  </mat-card-title-group>
+</mat-card>

@@ -1,0 +1,16 @@
+.project-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  & .mat-card {
+    max-width: 20em;
+
+    & .add-project-button {
+      height: 10em;
+      width: 10em;
+    }
+  }
+}
+
+

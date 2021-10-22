@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { GoogleService } from 'src/authentication/authentication-strategies/google.service';
-import { GoogleStrategy } from 'src/authentication/authentication-strategies/google.strategy';
-import { AuthenticationController } from 'src/authentication/authentication.controller';
-import { GoogleUser, GoogleUserSchema } from 'src/models/user/google-user';
-import { User, UserSchema } from 'src/models/user/user';
+import { GoogleService } from './authentication-strategies/google.service';
+import { GoogleStrategy } from './authentication-strategies/google.strategy';
+import { AuthenticationController } from './authentication.controller';
+import { GoogleUser, GoogleUserSchema } from './../models/user/google-user';
+import { User, UserSchema } from './../models/user/user';
 
 @Module({
   imports: [

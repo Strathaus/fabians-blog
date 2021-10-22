@@ -3,11 +3,15 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import * as session from 'express-session';
+import { ValidationPipe } from '@nestjs/common';
 
 config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Enable global validation
+  app.useGlobalPipes(new ValidationPipe());
 
   // Set up OpenApi Viewer
   const config = new DocumentBuilder()
@@ -18,6 +22,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api', app, document);
 
+  // Set up Sessions
   app.use(
     session({
       secret: 'apUXCM9XzGdnV9ne',

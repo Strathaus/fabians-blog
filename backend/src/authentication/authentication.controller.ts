@@ -18,9 +18,9 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { Request } from 'express';
-import { IHttpError } from 'src/models/http-error.interface';
-import { User } from 'src/models/user/user';
-import { GoogleService } from 'src/authentication/authentication-strategies/google.service';
+import { IHttpError } from './../models/http-error.interface';
+import { User } from './../models/user/user';
+import { GoogleService } from './authentication-strategies/google.service';
 
 @Controller('api/authentication')
 @ApiTags('authentication')
