@@ -4,6 +4,7 @@ import { AppModule } from './app.module';
 import { config } from 'dotenv';
 import * as session from 'express-session';
 import { ValidationPipe } from '@nestjs/common';
+import MongoStore = require('connect-mongo');
 
 config();
 
@@ -23,11 +24,13 @@ async function bootstrap() {
   SwaggerModule.setup('/api', app, document);
 
   // Set up Sessions
+  const mongoStore = MongoStore.create({ mongoUrl: process.env.MONGODB_URL });
   app.use(
     session({
       secret: 'apUXCM9XzGdnV9ne',
       resave: false,
       saveUninitialized: false,
+      store: mongoStore,
     }),
   );
   app.enableCors({ origin: 'http://localhost:4200', credentials: true });

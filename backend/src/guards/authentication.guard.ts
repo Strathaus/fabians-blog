@@ -3,7 +3,6 @@ import {
   CanActivate,
   ExecutionContext,
   UnauthorizedException,
-  ForbiddenException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { IRequest } from './auth.req.interface';
@@ -19,11 +18,8 @@ export class AuthorizationGuard implements CanActivate {
   private _validateRequest(req: IRequest): boolean {
     if (!req.session.user) {
       throw new UnauthorizedException();
+    } else {
+      return true;
     }
-    // TODO
-    if (!req.session.user) {
-      throw new ForbiddenException();
-    }
-    return true;
   }
 }

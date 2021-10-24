@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Query,
   Session,
@@ -11,6 +13,8 @@ import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
   ApiForbiddenResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
   ApiQuery,
   ApiTags,
   ApiUnauthorizedResponse,
@@ -63,5 +67,17 @@ export class BlogController {
   })
   async getLatestBlogEntries(@Query('skip') skip) {
     return this._blogService.getLatestBlogs(skip);
+  }
+
+  @Delete(':id')
+  @ApiNoContentResponse({
+    description: 'Blog entry was successfully deleted.',
+  })
+  @ApiNotFoundResponse({
+    description: 'Blog entry could not be found.',
+    type: IHttpError,
+  })
+  async deleteBlogEntry(@Param('id') id) {
+    return this._blogService.deleteBlogEntry(id);
   }
 }

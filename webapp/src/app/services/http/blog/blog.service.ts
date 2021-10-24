@@ -12,7 +12,7 @@ export class BlogService {
 
   constructor(private readonly _http: HttpClient) {}
 
-  public createNewBlogEntries(blogEntry: IBlogEntry): Observable<IBlogEntry> {
+  public createNewBlogEntry(blogEntry: IBlogEntry): Observable<IBlogEntry> {
     return this._http.post<IBlogEntry>(`${this._apiUrl}/blog`, blogEntry);
   }
 
@@ -20,5 +20,9 @@ export class BlogService {
     return this._http.get<IBlogEntry[]>(`${this._apiUrl}/blog`, {
       headers: { start: `${start}` },
     });
+  }
+
+  public removeBlogEntry(id: string): Observable<void> {
+    return this._http.delete<void>(`${this._apiUrl}/blog/${id}`);
   }
 }

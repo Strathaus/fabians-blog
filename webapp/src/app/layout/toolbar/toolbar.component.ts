@@ -10,12 +10,12 @@ import { GlobalStateService } from 'src/app/services/global-state/global-state.s
 export class ToolbarComponent implements OnInit {
   constructor(
     public readonly globalStateService: GlobalStateService,
-    private readonly authenticationService: AuthenticationService
+    private readonly _authenticationService: AuthenticationService
   ) {}
 
   ngOnInit(): void {}
 
   logout(): void {
-    this.authenticationService.deleteAuthentication().subscribe();
+    this._authenticationService.deleteAuthentication().subscribe();
   }
 }

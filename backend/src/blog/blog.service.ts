@@ -20,6 +20,14 @@ export class BlogService {
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(10)
+      .populate({
+        path: 'author',
+        fields: '_id firstname lastname',
+      })
       .exec();
+  }
+
+  async deleteBlogEntry(id: string) {
+    return this.blogEntryModel.remove({ _id: id });
   }
 }

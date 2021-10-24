@@ -39,7 +39,6 @@ export class AuthenticationController {
     type: IHttpError,
   })
   getAuthenticationStatus(@Session() session) {
-    this.logger.debug('getAuthenticationStatus called');
     if (!session.user) throw new UnauthorizedException();
     return session.user;
   }
@@ -51,7 +50,6 @@ export class AuthenticationController {
     description: 'Authentication status was removed successfully.',
   })
   deleteAuthentication(@Session() session) {
-    this.logger.debug('deleteAuthentication called');
     delete session.user;
   }
 

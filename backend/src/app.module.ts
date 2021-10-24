@@ -5,6 +5,8 @@ import { join } from 'path';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { ProjectModule } from './project/project.module';
 import { BlogModule } from './blog/blog.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from './interceptors/logging.interceptor';
 
 @Module({
   imports: [
@@ -22,6 +24,11 @@ import { BlogModule } from './blog/blog.module';
     BlogModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggingInterceptor,
+    },
+  ],
 })
 export class AppModule {}

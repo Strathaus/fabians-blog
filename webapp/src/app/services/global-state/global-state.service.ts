@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { IUser } from 'src/app/models/user/user.interface';
 
 @Injectable({
@@ -7,6 +7,7 @@ import { IUser } from 'src/app/models/user/user.interface';
 })
 export class GlobalStateService {
   public user = new ReplaySubject<IUser>();
+  public loading = new BehaviorSubject<number>(0);
 
   constructor() {}
 }

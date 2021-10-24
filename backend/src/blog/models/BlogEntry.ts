@@ -5,7 +5,7 @@ import { User } from 'src/models/user/user';
 
 export type BlogEntryDocument = BlogEntry & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class BlogEntry {
   @ApiProperty({
     example:

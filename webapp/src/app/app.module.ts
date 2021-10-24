@@ -20,6 +20,8 @@ import { BlogEntryComponent } from './pages/blog/blog-entry/blog-entry.component
 import { BlogListComponent } from './pages/blog/blog-list/blog-list.component';
 import { CreateEditBlogEntryComponent } from './pages/blog/create-edit-blog-entry/create-edit-blog-entry.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
+    SharedModule,
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -24,9 +24,9 @@ export class CreateEditBlogEntryComponent implements OnInit {
   createBlogEntry(): void {
     if (this._blogForm.valid) {
       this._blogService
-        .createNewBlogEntries(this._blogForm.value)
+        .createNewBlogEntry(this._blogForm.value)
         .subscribe((res) => {
-          this._router.navigate(['.', '..']);
+          this._router.navigate(['..']);
         });
     }
   }
