@@ -22,6 +22,14 @@ export class BlogService {
     });
   }
 
+  public getBlogEntry(id: string): Observable<IBlogEntry> {
+    return this._http.get<IBlogEntry>(`${this._apiUrl}/blog/${id}`);
+  }
+
+  public editBlogEntry(id: string, data: IBlogEntry): Observable<IBlogEntry> {
+    return this._http.put<IBlogEntry>(`${this._apiUrl}/blog/${id}`, data);
+  }
+
   public removeBlogEntry(id: string): Observable<void> {
     return this._http.delete<void>(`${this._apiUrl}/blog/${id}`);
   }

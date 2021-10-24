@@ -3,8 +3,10 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
+  Put,
   Query,
   Session,
   UseGuards,
@@ -15,12 +17,15 @@ import {
   ApiForbiddenResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiParam,
   ApiQuery,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthorizationGuard } from 'src/guards/authorization.guard';
 import { IHttpError } from 'src/models/http-error.interface';
+import { MongoObjectIdPipe } from 'src/pipes/mongo-object-id.pipe';
 import { BlogService } from './blog.service';
 import { BlogEntry } from './models/BlogEntry';
 import { CreateBlogDto } from './models/CreateBlogDto';
@@ -31,6 +36,7 @@ export class BlogController {
   constructor(private readonly _blogService: BlogService) {}
   @Post()
   @UseGuards(AuthorizationGuard)
+  @HttpCode(201)
   @ApiCreatedResponse({
     description: 'Blog entry was successfully created',
     type: BlogEntry,
@@ -65,8 +71,55 @@ export class BlogController {
       'Skip x entries after sorting by createdAt (for loading more blog entries)',
     example: 10,
   })
+  @ApiOkResponse({
+    description: 'Successfully fetched blog entries',
+  })
   async getLatestBlogEntries(@Query('skip') skip) {
     return this._blogService.getLatestBlogs(skip);
+  }
+
+  @Get(':id')
+  @ApiParam({
+    name: 'id',
+    type: String,
+    description: 'ID of the blog Entry',
+    example: '6175a3e1c787c16dfd6cc006',
+  })
+  @ApiOkResponse({
+    description: 'Successfully fetched blog entry',
+  })
+  async getBlogEntry(@Param('id', MongoObjectIdPipe) id) {
+    return this._blogService.getBlog(id);
+  }
+
+  @Put(':id')
+  @UseGuards(AuthorizationGuard)
+  @ApiParam({
+    name: 'id',
+    type: String,
+    description: 'ID of the blog Entry',
+    example: '6175a3e1c787c16dfd6cc006',
+  })
+  @ApiOkResponse({
+    description: 'Successfully edited blog entry',
+  })
+  @ApiBadRequestResponse({
+    description: 'Request does not match the expected format.',
+    type: IHttpError,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authenticated.',
+    type: IHttpError,
+  })
+  @ApiForbiddenResponse({
+    description: 'User does not have the right to edit blog entries',
+    type: IHttpError,
+  })
+  async editBlogEntry(
+    @Param('id', MongoObjectIdPipe) id,
+    @Body() createBlogDto: CreateBlogDto,
+  ) {
+    return this._blogService.editBlog(id, createBlogDto);
   }
 
   @Delete(':id')
@@ -77,7 +130,7 @@ export class BlogController {
     description: 'Blog entry could not be found.',
     type: IHttpError,
   })
-  async deleteBlogEntry(@Param('id') id) {
+  async deleteBlogEntry(@Param('id', MongoObjectIdPipe) id) {
     return this._blogService.deleteBlogEntry(id);
   }
 }

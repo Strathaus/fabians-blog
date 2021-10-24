@@ -21,6 +21,7 @@ const routes: Routes = [
     children: [
       { path: '', component: BlogListComponent },
       { path: 'new', component: CreateEditBlogEntryComponent },
+      { path: 'edit/:id', component: CreateEditBlogEntryComponent },
       { path: ':id', component: BlogEntryComponent },
     ],
   },
@@ -32,7 +33,11 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  { path: '**', pathMatch: 'full', component: PageNotFoundComponent },
+  {
+    path: '404',
+    component: PageNotFoundComponent,
+  },
+  { path: '**', pathMatch: 'full', redirectTo: '404' },
 ];
 
 @NgModule({

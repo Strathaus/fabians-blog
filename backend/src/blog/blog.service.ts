@@ -27,6 +27,26 @@ export class BlogService {
       .exec();
   }
 
+  async getBlog(id: string) {
+    return this.blogEntryModel
+      .findById(id)
+      .populate({
+        path: 'author',
+        fields: '_id firstname lastname',
+      })
+      .exec();
+  }
+
+  async editBlog(id: string, data: any) {
+    return this.blogEntryModel
+      .findByIdAndUpdate(id, data, { upsert: false, new: true })
+      .populate({
+        path: 'author',
+        fields: '_id firstname lastname',
+      })
+      .exec();
+  }
+
   async deleteBlogEntry(id: string) {
     return this.blogEntryModel.remove({ _id: id });
   }

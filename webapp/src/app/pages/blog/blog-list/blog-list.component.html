@@ -6,14 +6,17 @@
 </a>
 
 <mat-card *ngFor="let blogEntry of blogEntries; let i = index">
-  <mat-card-title-group>
+  <a mat-card-title-group [routerLink]="[blogEntry._id]">
     <mat-card-title>{{blogEntry.title}}</mat-card-title>
     <mat-card-subtitle>{{blogEntry.createdAt | date}}</mat-card-subtitle>
-  </mat-card-title-group>
+  </a>
   <mat-card-content>
     {{blogEntry.text}}
   </mat-card-content>
   <mat-card-actions *ngIf="globalStateService.user | async" align="end">
+    <button mat-button color="accent" [routerLink]="['edit', blogEntry._id]">
+      <mat-icon>edit</mat-icon> Edit
+    </button>
     <button mat-button color="warn" (click)="removeBlogEntry(i, blogEntry._id)">
       <mat-icon>delete</mat-icon> Delete
     </button>
