@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthenticationService } from 'src/app/services/http/authentication/authentication.service';
 import { GlobalStateService } from 'src/app/services/global-state/global-state.service';
 
 @Component({

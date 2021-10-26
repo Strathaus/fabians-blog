@@ -1,12 +1,10 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import { config } from 'dotenv';
 import * as session from 'express-session';
 import { ValidationPipe } from '@nestjs/common';
 import MongoStore = require('connect-mongo');
-
-config();
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -24,7 +22,10 @@ async function bootstrap() {
   SwaggerModule.setup('/api', app, document);
 
   // Set up Sessions
-  const mongoStore = MongoStore.create({ mongoUrl: process.env.MONGODB_URL });
+  const configService = app.get(ConfigService);
+  const mongoStore = MongoStore.create({
+    mongoUrl: configService.get('MONGODB_URL'),
+  });
   app.use(
     session({
       secret: 'apUXCM9XzGdnV9ne',
@@ -35,6 +36,6 @@ async function bootstrap() {
   );
   app.enableCors({ origin: 'http://localhost:4200', credentials: true });
 
-  await app.listen(3000);
+  await app.listen(process.env.PORT || 3000);
 }
 bootstrap();

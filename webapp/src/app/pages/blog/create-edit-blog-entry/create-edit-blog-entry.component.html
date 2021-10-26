@@ -12,6 +12,26 @@
     <textarea matInput cdkTextareaAutosize formControlName="text"></textarea>
   </mat-form-field>
 
+  <mat-form-field appearance="outline">
+    <mat-label>Tags</mat-label>
+    <mat-chip-list #chipList aria-label="Tag selection">
+      <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="remove(tag)">
+        {{tag}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input placeholder="Tags..." #tagsInput [ngModel]="tagsCtrl | async" (ngModelChange)="tagsCtrl.next($event)"
+        [ngModelOptions]="{standalone: true}" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let tag of tagsAutoCompl | async" [value]="tag.name">
+        {{tag.name}} ({{tag.count}} results)
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
   <button mat-stroked-button color="primary" (click)="createOrEditBlogEntry()" *ngIf="!_id">
     <mat-icon>send</mat-icon> Posten!
   </button>

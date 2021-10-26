@@ -4,12 +4,13 @@ import {
   Get,
   HttpCode,
   Logger,
-  Redirect,
   Req,
+  Res,
   Session,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiOkResponse,
@@ -17,7 +18,7 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { IHttpError } from './../models/http-error.interface';
 import { User } from './../models/user/user';
 import { GoogleService } from './authentication-strategies/google.service';
@@ -25,9 +26,12 @@ import { GoogleService } from './authentication-strategies/google.service';
 @Controller('api/authentication')
 @ApiTags('authentication')
 export class AuthenticationController {
-  private readonly logger = new Logger(AuthenticationController.name);
+  private readonly _logger = new Logger(AuthenticationController.name);
 
-  constructor(private readonly googleService: GoogleService) {}
+  constructor(
+    private readonly _googleService: GoogleService,
+    private readonly _configService: ConfigService,
+  ) {}
 
   @Get()
   @ApiOkResponse({
@@ -56,14 +60,20 @@ export class AuthenticationController {
   @Get('google')
   @UseGuards(AuthGuard('google'))
   async googleAuth() {
-    this.logger.debug('User wants to login using Google Auth');
+    this._logger.debug('User wants to login using Google Auth');
   }
 
   @Get('google/redirect')
   @UseGuards(AuthGuard('google'))
-  @Redirect('http://localhost:4200', 301)
-  async googleAuthRedirect(@Req() req: Request, @Session() session) {
-    this.logger.debug('User successfully logged in using Google Auth');
-    session.user = await this.googleService.googleLogin(req);
+  async googleAuthRedirect(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Session() session,
+  ) {
+    this._logger.debug('User successfully logged in using Google Auth');
+    session.user = await this._googleService.googleLogin(req);
+    return res.redirect(
+      this._configService.get('REDIRECT_URI') || 'http://localhost:4200',
+    );
   }
 }

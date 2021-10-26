@@ -21,6 +21,10 @@ export class BlogEntry {
   @Prop({ required: true })
   text: string;
 
+  @ApiProperty({ type: [String] })
+  @Prop({ type: [String] })
+  tags: string[];
+
   @ApiProperty({ type: User })
   @Prop({ required: true, type: SchemaTypes.ObjectId, ref: 'User' })
   author: ObjectId;

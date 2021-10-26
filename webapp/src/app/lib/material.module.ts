@@ -11,6 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [],
@@ -26,6 +28,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
   exports: [
     MatButtonModule,
@@ -39,6 +43,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatInputModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatAutocompleteModule,
+    MatChipsModule,
   ],
 })
 export class MaterialModule {}

@@ -7,9 +7,15 @@ import { ProjectModule } from './project/project.module';
 import { BlogModule } from './blog/blog.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './interceptors/logging.interceptor';
+import { ConfigModule } from '@nestjs/config';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+    }),
     MongooseModule.forRootAsync({
       useFactory: () => ({
         uri: process.env.MONGODB_URL,
@@ -22,6 +28,7 @@ import { LoggingInterceptor } from './interceptors/logging.interceptor';
     }),
     ProjectModule,
     BlogModule,
+    TagsModule,
   ],
   controllers: [],
   providers: [

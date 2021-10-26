@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
-import { GlobalStateService } from '../global-state/global-state.service';
+import { GlobalStateService } from '../../global-state/global-state.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

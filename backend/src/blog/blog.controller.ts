@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  NotFoundException,
   Param,
   Post,
   Put,
@@ -89,7 +90,9 @@ export class BlogController {
     description: 'Successfully fetched blog entry',
   })
   async getBlogEntry(@Param('id', MongoObjectIdPipe) id) {
-    return this._blogService.getBlog(id);
+    const blog = await this._blogService.getBlog(id);
+    if (!blog) throw new NotFoundException();
+    return blog;
   }
 
   @Put(':id')
