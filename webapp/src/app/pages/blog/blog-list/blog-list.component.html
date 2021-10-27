@@ -5,13 +5,28 @@
   <mat-icon>add</mat-icon> Create new blog entry
 </a>
 
+<h3 *ngIf="tag">
+  Filtered for
+  <mat-chip-list>
+    <a mat-chip [removable]="true" (removed)="removeTag()">{{tag}}
+      <a matChipRemove>
+        <mat-icon>cancel</mat-icon>
+      </a>
+    </a>
+  </mat-chip-list>
+</h3>
+
 <mat-card *ngFor="let blogEntry of blogEntries; let i = index">
   <a mat-card-title-group [routerLink]="[blogEntry._id]">
     <mat-card-title>{{blogEntry.title}}</mat-card-title>
     <mat-card-subtitle>{{blogEntry.createdAt | date}}</mat-card-subtitle>
   </a>
   <mat-card-content>
-    {{blogEntry.text}}
+    <mat-divider></mat-divider>
+    <div class="preview" [innerHtml]="blogEntry.preview"></div>
+    <mat-chip-list>
+      <a mat-chip *ngFor="let tag of blogEntry.tags" [routerLink]="['.']" [queryParams]="{ tags: [tag]}">{{tag}}</a>
+    </mat-chip-list>
   </mat-card-content>
   <mat-card-actions *ngIf="globalStateService.user | async" align="end">
     <button mat-button color="accent" [routerLink]="['edit', blogEntry._id]">

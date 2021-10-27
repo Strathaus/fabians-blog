@@ -4,8 +4,9 @@ import { Document, ObjectId, SchemaTypes } from 'mongoose';
 import { User } from 'src/models/user/user';
 
 export type BlogEntryDocument = BlogEntry & Document;
+export const BLOG_PREVIEW_LENGTH = 100;
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: true, toJSON: { virtuals: true } })
 export class BlogEntry {
   @ApiProperty({
     example:
@@ -21,6 +22,9 @@ export class BlogEntry {
   @Prop({ required: true })
   text: string;
 
+  @ApiProperty({ type: String })
+  preview: string;
+
   @ApiProperty({ type: [String] })
   @Prop({ type: [String] })
   tags: string[];
@@ -30,4 +34,11 @@ export class BlogEntry {
   author: ObjectId;
 }
 
-export const BlogEntrySchema = SchemaFactory.createForClass(BlogEntry);
+const BlogEntrySchema = SchemaFactory.createForClass(BlogEntry);
+
+BlogEntrySchema.virtual('preview').get(function (this: BlogEntryDocument) {
+  const preview = `${this.text.substr(0, BLOG_PREVIEW_LENGTH)}...`;
+  return preview;
+});
+
+export { BlogEntrySchema };

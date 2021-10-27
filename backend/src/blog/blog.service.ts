@@ -14,9 +14,11 @@ export class BlogService {
     return this.blogEntryModel.create(blogEntry);
   }
 
-  async getLatestBlogs(skip?: number) {
+  async getLatestBlogs(skip?: number, tags?: string[]) {
     return this.blogEntryModel
-      .find()
+      .find({
+        ...(tags?.length > 0 ? { tags: { $in: tags } } : {}),
+      })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(10)
@@ -24,7 +26,14 @@ export class BlogService {
         path: 'author',
         fields: '_id firstname lastname',
       })
-      .exec();
+      .exec()
+      .then((blogEntries) =>
+        blogEntries.map((entry) => {
+          const retEntry = entry.toJSON();
+          delete retEntry.text;
+          return retEntry;
+        }),
+      );
   }
 
   async getBlog(id: string) {
@@ -34,6 +43,7 @@ export class BlogService {
         path: 'author',
         fields: '_id firstname lastname',
       })
+      .lean()
       .exec();
   }
 

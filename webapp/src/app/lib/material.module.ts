@@ -13,6 +13,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
@@ -30,6 +31,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatDialogModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatDividerModule,
   ],
   exports: [
     MatButtonModule,
@@ -45,6 +47,7 @@ import { MatChipsModule } from '@angular/material/chips';
     MatDialogModule,
     MatAutocompleteModule,
     MatChipsModule,
+    MatDividerModule,
   ],
 })
 export class MaterialModule {}

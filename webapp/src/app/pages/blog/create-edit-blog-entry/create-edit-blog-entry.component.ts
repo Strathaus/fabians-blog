@@ -43,6 +43,7 @@ export class CreateEditBlogEntryComponent implements OnInit {
         this._blogService.getBlogEntry(params.id).subscribe((res) => {
           this._id = res._id;
           this._blogForm.patchValue(res);
+          this.tags = res.tags;
         });
       }
     });

@@ -72,11 +72,20 @@ export class BlogController {
       'Skip x entries after sorting by createdAt (for loading more blog entries)',
     example: 10,
   })
+  @ApiQuery({
+    name: 'tags',
+    type: String,
+    description: 'Tags to filter for',
+    example: 'Webdevelopment',
+  })
   @ApiOkResponse({
     description: 'Successfully fetched blog entries',
   })
-  async getLatestBlogEntries(@Query('skip') skip) {
-    return this._blogService.getLatestBlogs(skip);
+  async getLatestBlogEntries(
+    @Query('skip') skip: number,
+    @Query('tags') tags: string[],
+  ) {
+    return this._blogService.getLatestBlogs(skip, tags);
   }
 
   @Get(':id')

@@ -16,9 +16,12 @@ export class BlogService {
     return this._http.post<IBlogEntry>(`${this._apiUrl}/blog`, blogEntry);
   }
 
-  public getBlogEntries(start?: number): Observable<IBlogEntry[]> {
+  public getBlogEntries(
+    start?: number,
+    tags?: string[]
+  ): Observable<IBlogEntry[]> {
     return this._http.get<IBlogEntry[]>(`${this._apiUrl}/blog`, {
-      headers: { start: `${start}` },
+      params: { start: `${start}`, ...(tags ? { tags } : {}) },
     });
   }
 
