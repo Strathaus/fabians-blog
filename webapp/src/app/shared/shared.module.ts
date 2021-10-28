@@ -6,5 +6,6 @@ import { MaterialModule } from '../lib/material.module';
 @NgModule({
   declarations: [ConfirmationDialogComponent],
   imports: [CommonModule, MaterialModule],
+  exports: [],
 })
 export class SharedModule {}

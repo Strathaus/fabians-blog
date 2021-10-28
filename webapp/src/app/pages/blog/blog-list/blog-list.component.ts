@@ -22,7 +22,6 @@ export class BlogListComponent implements OnInit {
     private readonly _route: ActivatedRoute
   ) {
     this._route.queryParams.subscribe((params) => {
-      console.log('Query Params Subscription called!');
       this.tag = params.tags;
       this._loadBlogEntries();
     });
