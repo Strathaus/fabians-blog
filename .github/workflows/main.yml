@@ -35,6 +35,15 @@ jobs:
       - name: Build Angular Frontend
         run: npm run build --prefix webapp
 
+      - name: Populate .env
+        uses: bn-digital/vault-env@latest
+        with:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          MONGODB_URL: ${{secrets.MONGODB_URL}}
+          template: backend/.env.dist
+          target: backend/.env
+
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@v0.2.0
