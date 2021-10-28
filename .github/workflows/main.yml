@@ -26,6 +26,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: npm run install-dependencies
+
+      - name: Build Nest Backend
+        run: npm run build --prefix backend
+
+      - name: Build Angular Frontend
+        run: npm run build --prefix webapp
+
       - name: Deploy to App Engine
         id: deploy
         uses: google-github-actions/deploy-appengine@v0.2.0
