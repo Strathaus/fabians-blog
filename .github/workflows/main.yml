@@ -38,10 +38,6 @@ jobs:
       - name: Create .env file
         uses: DeveloperRic/action-create-env@v1.0.2
         with:
-          full_text: |
-            prod=true
-          # Specify the directory that the .env file should go in.
-          # This defaults to the current directory (i.e. '.')
           directory: backend
           include_env_vars: true
         env:
