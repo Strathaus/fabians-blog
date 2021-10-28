@@ -44,10 +44,10 @@ jobs:
           # This defaults to the current directory (i.e. '.')
           directory: backend
           include_env_vars: true
-          env:
-            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-            GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
-            MONGODB_URL: ${{ secrets.MONGODB_URL }}
+        env:
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
 
       - name: Deploy to App Engine
         id: deploy
