@@ -35,14 +35,18 @@ jobs:
       - name: Build Angular Frontend
         run: npm run build --prefix webapp
 
-      - name: Populate .env
-        uses: bn-digital/vault-env@latest
+      - name: Create .env file
+        uses: DeveloperRic/action-create-env@v1.0.2
         with:
-          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
-          MONGODB_URL: ${{secrets.MONGODB_URL}}
-          template: backend/.env.dist
-          target: backend/.env
+          full_text:
+          # Specify the directory that the .env file should go in.
+          # This defaults to the current directory (i.e. '.')
+          directory: backend
+          include_env_vars: true
+          env:
+            GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+            GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+            MONGODB_URL: ${{ secrets.MONGODB_URL }}
 
       - name: Deploy to App Engine
         id: deploy
