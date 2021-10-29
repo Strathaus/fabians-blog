@@ -41,8 +41,7 @@ jobs:
           envkey_GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
           envkey_GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           envkey_MONGODB_URL: ${{ secrets.MONGODB_URL }}
-          envkey_PRODUCTION: true
-          some_other_variable: foobar
+          envkey_PRODUCTION: false
           directory: backend
           file_name: .env
 
