@@ -31,7 +31,9 @@ export class AuthenticationController {
   constructor(
     private readonly _googleService: GoogleService,
     private readonly _configService: ConfigService,
-  ) {}
+  ) {
+    console.log(process.env.NODE_ENV);
+  }
 
   @Get()
   @ApiOkResponse({
@@ -72,8 +74,11 @@ export class AuthenticationController {
   ) {
     this._logger.debug('User successfully logged in using Google Auth');
     session.user = await this._googleService.googleLogin(req);
+    console.log(typeof this._configService.get('PRODUCTION'));
     return res.redirect(
-      this._configService.get('REDIRECT_URI') || 'http://localhost:4200',
+      Boolean(this._configService.get('PRODUCTION'))
+        ? '/'
+        : 'http://localhost:4200',
     );
   }
 }
