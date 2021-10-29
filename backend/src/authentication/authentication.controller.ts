@@ -72,7 +72,6 @@ export class AuthenticationController {
   ) {
     this._logger.debug('User successfully logged in using Google Auth');
     session.user = await this._googleService.googleLogin(req);
-    console.log(typeof this._configService.get('PRODUCTION'));
     return res.redirect(
       JSON.parse(this._configService.get('PRODUCTION'))
         ? '/'
