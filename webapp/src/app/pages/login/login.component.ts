@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   forwardTo(url: string) {
-    window.location.href = url;
+    window.location.href = environment.production
+      ? url
+      : `localhost:4200${url}`;
   }
 }
