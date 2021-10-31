@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -32,6 +33,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatAutocompleteModule,
     MatChipsModule,
     MatDividerModule,
+    MatBadgeModule,
   ],
   exports: [
     MatButtonModule,
@@ -48,6 +50,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatAutocompleteModule,
     MatChipsModule,
     MatDividerModule,
+    MatBadgeModule,
   ],
 })
 export class MaterialModule {}

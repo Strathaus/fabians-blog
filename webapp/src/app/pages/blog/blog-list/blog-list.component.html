@@ -16,6 +16,10 @@
   </mat-chip-list>
 </h3>
 
+<mat-card *ngIf="blogEntries && blogEntries.length == 0">
+  <mat-icon>info</mat-icon>Sorry, there are no blog entries written yet.
+</mat-card>
+
 <mat-card *ngFor="let blogEntry of blogEntries; let i = index">
   <a mat-card-title-group [routerLink]="[blogEntry._id]">
     <mat-card-title>{{blogEntry.title}}</mat-card-title>

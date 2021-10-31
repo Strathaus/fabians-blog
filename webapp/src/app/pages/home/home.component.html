@@ -1,1 +1,35 @@
-<p>home works!</p>
+<h2>Welcom to Fabian's Blog!</h2>
+
+<p>This is <b>Fabian's Blog</b>. A blog, where I, Fabian, will elaborate and discuss about topics like webdevelopment.
+</p>
+<p>I have quiet some experience in the MEAN stack. However in my opinion the "E" should probably removed, since Express
+  can in today's world definitely be abstracted by some higher level framework for the easy of use.</p>
+
+<h4>What can I expect from this blog?</h4>
+<p>The coolest thing is that this blog is open source. Anything developed on for the website you are currently visiting
+  can be reused by you for your own needs. You will be able to interact with me and ask me questions like:</p>
+<ul>
+  <li>How should Thing X be implemented?</li>
+  <li>Why did you implement Thing X like the way you did?</li>
+  <li>Why don't you add Thing X to your website, so that I will be able to reuse the solution for my personal project?
+  </li>
+</ul>
+
+<a mat-raised-button href="https://github.com/Strathaus/fabians-blog" target="_blank" color="primary">
+  <mat-icon>open_in_new</mat-icon>
+  Visit Repository
+</a>
+
+<h4>What is the target audience of this blog?</h4>
+<p>The target audience can probably be described by the term intermediate webdevelopers. Nevertheless I want to engage
+  with my community as much as possible and will also try to explain basic principles and functionalities.</p>
+
+
+<mat-divider></mat-divider>
+<ng-container *ngIf="popularTags">
+  <h3>Most popular Tags</h3>
+  <a mat-chip *ngFor="let tag of popularTags" [routerLink]="['blog']" [queryParams]="{tags: tag.name}"
+    [matBadge]="tag.count">
+    {{tag.name}}
+  </a>
+</ng-container>
