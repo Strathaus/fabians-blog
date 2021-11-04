@@ -1,6 +1,8 @@
+import { LocationStrategy } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '../../../lib/material.module';
@@ -18,8 +20,12 @@ describe('CreateEditBlogEntryComponent', () => {
         MaterialModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        BrowserDynamicTestingModule,
         NoopAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+      providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
       ],
     }).compileComponents();
   });

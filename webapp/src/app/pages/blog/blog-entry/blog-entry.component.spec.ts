@@ -4,8 +4,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BlogEntryComponent } from './blog-entry.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { LocationStrategy } from '@angular/common';
+import { MockLocationStrategy } from '@angular/common/testing';
 
 describe('BlogEntryComponent', () => {
   let component: BlogEntryComponent;
@@ -18,8 +19,10 @@ describe('BlogEntryComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         MaterialModule,
-        BrowserDynamicTestingModule,
         NoopAnimationsModule,
+      ],
+      providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
       ],
     }).compileComponents();
   });

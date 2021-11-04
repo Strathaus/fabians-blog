@@ -1,3 +1,5 @@
+import { LocationStrategy } from '@angular/common';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MaterialModule } from '../../lib/material.module';
@@ -12,6 +14,9 @@ describe('SidenavComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [SidenavComponent],
       imports: [MaterialModule, RouterTestingModule],
+      providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
+      ],
     }).compileComponents();
   });
 

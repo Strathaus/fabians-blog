@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MaterialModule } from '../../lib/material.module';
 
@@ -11,7 +11,7 @@ describe('ToolbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ToolbarComponent],
-      imports: [HttpClientModule, MaterialModule],
+      imports: [HttpClientTestingModule, MaterialModule],
     }).compileComponents();
   });
 

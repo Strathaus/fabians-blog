@@ -1,4 +1,7 @@
+import { LocationStrategy } from '@angular/common';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { SuggestionsComponent } from './suggestions.component';
 
@@ -8,9 +11,12 @@ describe('SuggestionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SuggestionsComponent ]
-    })
-    .compileComponents();
+      declarations: [SuggestionsComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
+      ],
+    }).compileComponents();
   });
 
   beforeEach(() => {

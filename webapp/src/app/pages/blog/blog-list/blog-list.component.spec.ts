@@ -1,4 +1,6 @@
-import { HttpClientModule } from '@angular/common/http';
+import { LocationStrategy } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,8 +15,9 @@ describe('BlogListComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [BlogListComponent],
-      imports: [MaterialModule, HttpClientModule, RouterTestingModule],
+      imports: [MaterialModule, HttpClientTestingModule, RouterTestingModule],
       providers: [
+        { provide: LocationStrategy, useClass: MockLocationStrategy },
         {
           provide: MAT_DIALOG_DATA,
           useValue: {},
