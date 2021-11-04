@@ -17,7 +17,7 @@ jobs:
 
       - name: Test Webapp
         run: |
-          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --prefix webapp
+          npm test --prefix webapp -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 
       - name: Build Nest Backend
         run: npm run build --prefix backend
