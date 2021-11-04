@@ -45,3 +45,13 @@ jobs:
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
+
+      - name: Send telegram message about build status
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            Build Status: {{job.status}}
