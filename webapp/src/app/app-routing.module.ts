@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './pages/login/login.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
+import { SuggestionsModule } from './suggestions/suggestions.module';
 
 const routes: Routes = [
   {
@@ -28,6 +29,13 @@ const routes: Routes = [
   {
     path: 'projects',
     component: ProjectsComponent,
+  },
+  {
+    path: 'suggestions',
+    loadChildren: () =>
+      import('./suggestions/suggestions.module').then(
+        (m) => m.SuggestionsModule
+      ),
   },
   {
     path: 'login',

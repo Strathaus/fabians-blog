@@ -15,6 +15,10 @@ jobs:
       - name: Install dependencies
         run: npm run install-dependencies
 
+      - name: Test Webapp
+        run: |
+          npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI --prefix webapp
+
       - name: Build Nest Backend
         run: npm run build --prefix backend
 

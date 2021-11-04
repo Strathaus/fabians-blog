@@ -1,0 +1,14 @@
+<h2>Suggestions</h2>
+
+<button mat-raised-button [routerLink]="['new']" color="primary">
+  <mat-icon>add</mat-icon> New suggestion
+</button>
+
+<section class="suggestion-list">
+  <h3 *ngIf="!($suggestions | async)">
+    <mat-icon>info</mat-icon> There are no suggestions existing yet!
+  </h3>
+  <ng-container *ngFor="let suggestion of ($suggestions | async)">
+    {{suggestion.title}}
+  </ng-container>
+</section>
