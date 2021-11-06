@@ -1,4 +1,4 @@
-import { IUser } from '../user/user.interface';
+import { IUser } from '../../models/user/user.interface';
 
 export interface IBlogEntry {
   _id: string;

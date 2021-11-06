@@ -1,1 +1,23 @@
-<p>create-edit-suggestion works!</p>
+<button mat-button [routerLink]="['/suggestions']">
+  <mat-icon>arrow_back</mat-icon> Back to suggestion list
+</button>
+<mat-divider></mat-divider>
+
+<h2>Creat Suggestion</h2>
+
+<form [formGroup]="suggestionForm">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+
+  <button mat-raised-button (click)="submit()">
+    <mat-icon>send</mat-icon> Submit
+  </button>
+</form>

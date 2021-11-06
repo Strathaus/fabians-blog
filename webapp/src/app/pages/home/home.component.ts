@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ITag } from '../../models/blog/tag.interface';
-import { TagsService } from '../../services/http/tags/tags.service';
+import { ITag } from '../../blogs/models/tag.interface';
+import { TagsService } from '../../blogs/tags.service';
 
 @Component({
   selector: 'app-home',

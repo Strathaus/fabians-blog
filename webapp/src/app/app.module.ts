@@ -15,10 +15,6 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { ProjectComponent } from './pages/projects/project/project.component';
 import { CreateEditProjectComponent } from './pages/projects/create-edit-project/create-edit-project.component';
-import { BlogComponent } from './pages/blog/blog.component';
-import { BlogEntryComponent } from './pages/blog/blog-entry/blog-entry.component';
-import { BlogListComponent } from './pages/blog/blog-list/blog-list.component';
-import { CreateEditBlogEntryComponent } from './pages/blog/create-edit-blog-entry/create-edit-blog-entry.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { SharedModule } from './shared/shared.module';
@@ -34,10 +30,6 @@ import { SharedModule } from './shared/shared.module';
     ProjectsComponent,
     ProjectComponent,
     CreateEditProjectComponent,
-    BlogComponent,
-    BlogEntryComponent,
-    BlogListComponent,
-    CreateEditBlogEntryComponent,
   ],
   imports: [
     BrowserModule,

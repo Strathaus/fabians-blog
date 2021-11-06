@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MaterialModule } from '../../../lib/material.module';
+import { MaterialModule } from '../../lib/material.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { BlogEntryComponent } from './blog-entry.component';

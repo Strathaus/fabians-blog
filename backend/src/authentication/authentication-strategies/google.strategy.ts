@@ -15,9 +15,6 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
         : 'http://localhost:3000/api/authentication/google/redirect',
       scope: ['email', 'profile'],
     });
-    console.log(
-      'Production environment: ' + JSON.parse(_configService.get('PRODUCTION')),
-    );
   }
 
   async validate(

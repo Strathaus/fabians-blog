@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { BlogEntry, BlogEntryDocument } from './models/BlogEntry';
 
 @Injectable()
-export class BlogService {
+export class BlogsService {
   constructor(
     @InjectModel(BlogEntry.name)
     private blogEntryModel: Model<BlogEntryDocument>,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IBlogEntry } from 'src/app/models/blog/blog-entry.interface';
+import { IBlogEntry } from 'src/app/blogs/models/blog-entry.interface';
 import { ConfirmationService } from 'src/app/services/confirmation/confirmation.service';
 import { GlobalStateService } from 'src/app/services/global-state/global-state.service';
-import { BlogService } from 'src/app/services/http/blog/blog.service';
+import { BlogService } from '../blog.service';
 
 @Component({
   selector: 'app-blog-list',

@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BlogService } from 'src/app/services/http/blog/blog.service';
-import { ITag } from '../../../models/blog/tag.interface';
+import { BlogService } from './../blog.service';
+import { ITag } from './../models/tag.interface';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import {
@@ -12,7 +12,7 @@ import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
-import { TagsService } from '../../../services/http/tags/tags.service';
+import { TagsService } from './../tags.service';
 import { Subject } from 'rxjs';
 
 @Component({

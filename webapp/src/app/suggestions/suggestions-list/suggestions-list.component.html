@@ -5,10 +5,23 @@
 </button>
 
 <section class="suggestion-list">
-  <h3 *ngIf="!($suggestions | async)">
+  <mat-spinner *ngIf="!($suggestions | async)"></mat-spinner>
+  <h3 *ngIf="($suggestions | async)?.length === 0">
     <mat-icon>info</mat-icon> There are no suggestions existing yet!
   </h3>
-  <ng-container *ngFor="let suggestion of ($suggestions | async)">
-    {{suggestion.title}}
-  </ng-container>
+  <mat-card *ngFor="let suggestion of ($suggestions | async); let i = index">
+    <mat-card-title>{{suggestion.title}}</mat-card-title>
+    <mat-card-content>
+      {{suggestion.description}}
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-flat-button [color]="suggestion.liked ? 'primary' : ''" (click)="likeClick(i, suggestion)">
+        <mat-icon>thumb_up</mat-icon> {{suggestion.likes}} Like
+      </button>
+      <button mat-button *ngIf="(globalStateService.user | async)?._id === suggestion.author._id" color="warn"
+        (click)="deleteSuggestion(i, suggestion._id)">
+        <mat-icon>delete</mat-icon> Löschen
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </section>

@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -34,6 +35,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatChipsModule,
     MatDividerModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatButtonModule,
@@ -51,6 +53,7 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatChipsModule,
     MatDividerModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
   ],
 })
 export class MaterialModule {}

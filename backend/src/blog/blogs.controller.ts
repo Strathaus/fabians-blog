@@ -27,14 +27,14 @@ import {
 import { AuthorizationGuard } from 'src/guards/authorization.guard';
 import { IHttpError } from 'src/models/http-error.interface';
 import { MongoObjectIdPipe } from 'src/pipes/mongo-object-id.pipe';
-import { BlogService } from './blog.service';
+import { BlogsService } from './blogs.service';
 import { BlogEntry } from './models/BlogEntry';
 import { CreateBlogDto } from './models/CreateBlogDto';
 
-@Controller('api/blog')
+@Controller('api/blogs')
 @ApiTags('blog')
-export class BlogController {
-  constructor(private readonly _blogService: BlogService) {}
+export class BlogsController {
+  constructor(private readonly _blogService: BlogsService) {}
   @Post()
   @UseGuards(AuthorizationGuard)
   @HttpCode(201)

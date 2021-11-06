@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { IRequest } from './auth.req.interface';
 
 @Injectable()
-export class AuthorizationGuard implements CanActivate {
+export class AuthenticationGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
