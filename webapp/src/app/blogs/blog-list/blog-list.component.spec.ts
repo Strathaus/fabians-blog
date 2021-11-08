@@ -4,7 +4,7 @@ import { MockLocationStrategy } from '@angular/common/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '../../../lib/material.module';
+import { MaterialModule } from '../../lib/material.module';
 
 import { BlogListComponent } from './blog-list.component';
 

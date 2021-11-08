@@ -5,7 +5,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MaterialModule } from '../../../lib/material.module';
+import { MaterialModule } from '../../lib/material.module';
 
 import { CreateEditBlogEntryComponent } from './create-edit-blog-entry.component';
 

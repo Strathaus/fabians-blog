@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { CreateEditSuggestionComponent } from './create-edit-suggestion.component';
 
@@ -8,9 +10,9 @@ describe('CreateEditSuggestionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateEditSuggestionComponent ]
-    })
-    .compileComponents();
+      declarations: [CreateEditSuggestionComponent],
+      imports: [HttpClientTestingModule, RouterTestingModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
