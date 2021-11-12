@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'new',
     component: CreateEditSuggestionComponent,
   },
+  {
+    path: 'edit/:id',
+    component: CreateEditSuggestionComponent,
+  },
 ];
 
 @NgModule({

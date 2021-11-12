@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
+import { AppModule } from '@src/app.module';
 import * as session from 'express-session';
 import { ValidationPipe } from '@nestjs/common';
 import MongoStore = require('connect-mongo');

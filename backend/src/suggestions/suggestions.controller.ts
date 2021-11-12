@@ -23,12 +23,13 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { AuthenticationGuard } from '../guards/authentication.guard';
-import { IHttpError } from '../models/http-error.interface';
-import { MongoObjectIdPipe } from '../pipes/mongo-object-id.pipe';
-import { CreateSuggestionDto } from './models/CreateSuggestionDto';
-import { Suggestion } from './models/suggestion.model';
-import { SuggestionsService } from './suggestions.service';
+import { AuthenticationGuard } from '@src/guards/authentication.guard';
+import { IHttpError } from '@src/models/http-error.interface';
+import { MongoObjectIdPipe } from '@src/pipes/mongo-object-id.pipe';
+import { CreateSuggestionDto } from '@src/suggestions/models/CreateSuggestionDto';
+import { Suggestion } from '@src/suggestions/models/suggestion.model';
+import { SuggestionsService } from '@src/suggestions/suggestions.service';
+import { session } from 'passport';
 
 @Controller('api/suggestions')
 @ApiTags('suggestions')
@@ -70,13 +71,22 @@ export class SuggestionsController {
     example: 10,
   })
   @ApiOkResponse({
-    description: 'Successfully fetched blog entries',
+    description: 'Successfully fetched suggestions',
   })
   async getBestSuggestions(@Session() session, @Query('skip') skip: number) {
     return this._suggestionsService.getBestSuggestions({
       userId: session.user._id,
       skip,
     });
+  }
+
+  @Get(':id')
+  @ApiOkResponse({
+    description: 'Successfully fetched suggestion',
+    type: Suggestion,
+  })
+  async getSuggestion(@Session() session, @Param('id', MongoObjectIdPipe) id) {
+    return this._suggestionsService.getSuggestion(id);
   }
 
   @Put(':id')
@@ -99,10 +109,15 @@ export class SuggestionsController {
     type: IHttpError,
   })
   async editSuggestion(
+    @Session() session,
     @Param('id', MongoObjectIdPipe) id,
-    @Body() createBlogDto: CreateSuggestionDto,
+    @Body() editSuggestionDto: CreateSuggestionDto,
   ) {
-    //return this._suggestionsService.editBlog(id, createBlogDto);
+    return this._suggestionsService.editSuggestion(
+      id,
+      editSuggestionDto,
+      session.user._id,
+    );
   }
 
   @Delete(':id')
@@ -123,5 +138,42 @@ export class SuggestionsController {
     @Param('id', MongoObjectIdPipe) id,
   ) {
     return this._suggestionsService.deleteSuggestion(id, session.user._id);
+  }
+
+  @Post(':id/like')
+  @UseGuards(AuthenticationGuard)
+  @ApiOkResponse({
+    description: 'Suggestion was successfully liked.',
+    type: Number,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authenticated.',
+    type: IHttpError,
+  })
+  async likeSuggestion(@Session() session, @Param('id', MongoObjectIdPipe) id) {
+    return this._suggestionsService.likeSuggestionAndReturnLikes(
+      id,
+      session.user._id,
+    );
+  }
+
+  @Delete(':id/like')
+  @UseGuards(AuthenticationGuard)
+  @ApiOkResponse({
+    description: 'Like was successfully removed.',
+    type: Number,
+  })
+  @ApiUnauthorizedResponse({
+    description: 'User is not authenticated.',
+    type: IHttpError,
+  })
+  async removeLikeSuggestion(
+    @Session() session,
+    @Param('id', MongoObjectIdPipe) id,
+  ) {
+    return this._suggestionsService.removeLikeSuggestionAndReturnLikes(
+      id,
+      session.user._id,
+    );
   }
 }

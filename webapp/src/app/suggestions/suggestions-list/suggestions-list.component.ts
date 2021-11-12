@@ -38,9 +38,11 @@ export class SuggestionsListComponent implements OnInit {
   }
 
   likeClick(index: number, suggestion: ISuggestion): void {
-    const replaceSuggestion = (suggestion: ISuggestion): void => {
-      const suggestions = this.$suggestions.value;
-      suggestions?.splice(index, 1, suggestion);
+    const replaceSuggestion = (likes: number): void => {
+      const suggestions = this.$suggestions.value as ISuggestion[];
+      suggestions[index].likes = likes;
+      suggestions[index].liked = !suggestion.liked;
+      this.$suggestions.next(suggestions);
     };
     if (suggestion.liked) {
       this._suggestionService

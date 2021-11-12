@@ -3,7 +3,7 @@
 </button>
 <mat-divider></mat-divider>
 
-<h2>Creat Suggestion</h2>
+<h2>{{suggestion ? 'Edit Suggestion' : 'Create Suggestion'}}</h2>
 
 <form [formGroup]="suggestionForm">
 
@@ -17,7 +17,11 @@
     <textarea matInput formControlName="description"></textarea>
   </mat-form-field>
 
-  <button mat-raised-button (click)="submit()">
+  <button mat-raised-button (click)="submit()" *ngIf="!suggestion">
     <mat-icon>send</mat-icon> Submit
+  </button>
+
+  <button mat-raised-button (click)="submit()" *ngIf="suggestion">
+    <mat-icon>save</mat-icon> Save changes
   </button>
 </form>

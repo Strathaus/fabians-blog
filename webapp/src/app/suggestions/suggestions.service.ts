@@ -16,9 +16,23 @@ export class SuggestionsService {
     return this.http.get<ISuggestion[]>(`${this._apiUrl}/suggestions`);
   }
 
+  public getSuggestion(id: string): Observable<ISuggestion> {
+    return this.http.get<ISuggestion>(`${this._apiUrl}/suggestions/${id}`);
+  }
+
   public submitSuggestion(suggestion: ISuggestion): Observable<ISuggestion> {
     return this.http.post<ISuggestion>(
       `${this._apiUrl}/suggestions`,
+      suggestion
+    );
+  }
+
+  public editSuggestion(
+    id: string,
+    suggestion: ISuggestion
+  ): Observable<ISuggestion> {
+    return this.http.put<ISuggestion>(
+      `${this._apiUrl}/suggestions/${id}`,
       suggestion
     );
   }
@@ -27,16 +41,14 @@ export class SuggestionsService {
     return this.http.delete<void>(`${this._apiUrl}/suggestions/${id}`);
   }
 
-  public like(id: string): Observable<ISuggestion> {
-    return this.http.post<ISuggestion>(
+  public like(id: string): Observable<number> {
+    return this.http.post<number>(
       `${this._apiUrl}/suggestions/${id}/like`,
       null
     );
   }
 
-  public removeLike(id: string): Observable<ISuggestion> {
-    return this.http.delete<ISuggestion>(
-      `${this._apiUrl}/suggestions/${id}/like`
-    );
+  public removeLike(id: string): Observable<number> {
+    return this.http.delete<number>(`${this._apiUrl}/suggestions/${id}/like`);
   }
 }

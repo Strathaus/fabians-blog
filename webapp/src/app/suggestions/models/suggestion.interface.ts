@@ -7,4 +7,6 @@ export interface ISuggestion {
   author: IUser;
   liked: boolean;
   likes: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
