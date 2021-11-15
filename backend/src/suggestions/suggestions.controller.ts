@@ -29,7 +29,6 @@ import { MongoObjectIdPipe } from '@src/pipes/mongo-object-id.pipe';
 import { CreateSuggestionDto } from '@src/suggestions/models/CreateSuggestionDto';
 import { Suggestion } from '@src/suggestions/models/suggestion.model';
 import { SuggestionsService } from '@src/suggestions/suggestions.service';
-import { session } from 'passport';
 
 @Controller('api/suggestions')
 @ApiTags('suggestions')
@@ -85,7 +84,10 @@ export class SuggestionsController {
     description: 'Successfully fetched suggestion',
     type: Suggestion,
   })
-  async getSuggestion(@Session() session, @Param('id', MongoObjectIdPipe) id) {
+  async getSuggestion(
+    @Session() session,
+    @Param('id', MongoObjectIdPipe) id: string,
+  ) {
     return this._suggestionsService.getSuggestion(id);
   }
 

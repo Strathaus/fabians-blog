@@ -1,4 +1,4 @@
-<mat-progress-bar *ngIf="globalStateService.loading | async" color="accent"></mat-progress-bar>
+<mat-progress-bar *ngIf="globalStateService.$loading | async" color="accent"></mat-progress-bar>
 
 <mat-toolbar color="primary">
   <span class="spacer"></span>
@@ -6,9 +6,9 @@
 
   <span class="spacer"></span>
 
-  <ng-container *ngIf="globalStateService.user | async">
+  <ng-container *ngIf="globalStateService.$user | async">
     <button mat-button [matMenuTriggerFor]="userMenu">
-      <img [src]="(globalStateService.user | async)?.picture" height="32" width="32" />
+      <img [src]="(globalStateService.$user | async)?.picture" height="32" width="32" />
     </button>
     <mat-menu #userMenu>
       <button mat-menu-item (click)="logout()">

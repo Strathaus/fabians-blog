@@ -11,22 +11,28 @@ import {
   SuggestionDocument,
 } from '@src/suggestions/models/suggestion.model';
 import * as Mongoose from 'mongoose';
+import {
+  SuggestionComment,
+  SuggestionCommentDocument,
+} from './suggestion-comments/models/suggestion-comment.model';
 
 @Injectable()
 export class SuggestionsService {
   constructor(
     @InjectModel(Suggestion.name)
-    private suggestionModel: Model<SuggestionDocument>,
+    private readonly _suggestionModel: Model<SuggestionDocument>,
     @InjectModel(User.name)
-    private userModel: Model<UserDocument>,
+    private readonly _userModel: Model<UserDocument>,
+    @InjectModel(SuggestionComment.name)
+    private readonly _suggestionCommentModel: Model<SuggestionCommentDocument>,
   ) {}
 
   async createSuggestion(suggestion) {
-    return this.suggestionModel.create(suggestion);
+    return this._suggestionModel.create(suggestion);
   }
 
   async editSuggestion(id: string, suggestion, userId: string) {
-    return this.suggestionModel.findOneAndUpdate(
+    return this._suggestionModel.findOneAndUpdate(
       { _id: id, author: new Mongoose.Types.ObjectId(userId) } as any,
       suggestion,
       { new: true, fields: { title: 1, description: 1 } },
@@ -34,7 +40,7 @@ export class SuggestionsService {
   }
 
   async getSuggestion(id: string) {
-    const suggestion = await this.suggestionModel
+    const suggestion = await this._suggestionModel
       .findById(id)
       .select('_id title description');
     if (!suggestion)
@@ -43,7 +49,7 @@ export class SuggestionsService {
   }
 
   async likeSuggestionAndReturnLikes(id: string, userId: string) {
-    const suggestion = await this.suggestionModel.findOneAndUpdate(
+    const suggestion = await this._suggestionModel.findOneAndUpdate(
       { _id: id, likes: { $ne: userId } } as any,
       { $push: { likes: userId } },
       { new: true },
@@ -56,7 +62,7 @@ export class SuggestionsService {
   }
 
   async removeLikeSuggestionAndReturnLikes(id: string, userId: string) {
-    const suggestion = await this.suggestionModel.findOneAndUpdate(
+    const suggestion = await this._suggestionModel.findOneAndUpdate(
       { _id: id, likes: userId } as any,
       { $pull: { likes: userId } },
       { new: true },
@@ -69,7 +75,7 @@ export class SuggestionsService {
   }
 
   async getBestSuggestions(inputs: { userId?: string; skip?: number }) {
-    return this.suggestionModel.aggregate([
+    return this._suggestionModel.aggregate([
       {
         $set: {
           likesCount: { $size: '$likes' },
@@ -81,21 +87,25 @@ export class SuggestionsService {
       {
         $limit: 10,
       },
-      {
-        $set: {
-          liked: {
-            index: {
-              $indexOfArray: [
-                '$likes',
-                new Mongoose.Types.ObjectId(inputs.userId),
-              ],
+      ...(inputs.userId
+        ? [
+            {
+              $set: {
+                liked: {
+                  index: {
+                    $indexOfArray: [
+                      '$likes',
+                      new Mongoose.Types.ObjectId(inputs.userId),
+                    ],
+                  },
+                },
+              },
             },
-          },
-        },
-      },
+          ]
+        : []),
       {
         $lookup: {
-          from: this.userModel.collection.collectionName,
+          from: this._userModel.collection.collectionName,
           localField: 'author',
           foreignField: '_id',
           as: 'author',
@@ -107,12 +117,33 @@ export class SuggestionsService {
         },
       },
       {
+        $lookup: {
+          from: this._suggestionCommentModel.collection.collectionName,
+          let: { suggestionId: '$_id' },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ['$suggestion', '$$suggestionId'] },
+              },
+            },
+            {
+              $count: 'comments',
+            },
+          ],
+          as: 'comments',
+        },
+      },
+      {
+        $set: { comments: { $arrayElemAt: ['$comments', 0] } },
+      },
+      {
         $project: {
           title: 1,
           description: 1,
           createdAt: 1,
           updatedAt: 1,
           likes: '$likesCount',
+          comments: '$comments.comments',
           author: { _id: 1, email: 1 },
           liked: {
             $gte: ['$liked.index', 0],
@@ -123,7 +154,7 @@ export class SuggestionsService {
   }
 
   async deleteSuggestion(id: string, userId: string) {
-    const suggestion = await this.suggestionModel.findById(id);
+    const suggestion = await this._suggestionModel.findById(id);
     if (!suggestion) throw new NotFoundException();
     if (suggestion.author.toString() !== userId) throw new ForbiddenException();
     return suggestion.remove();

@@ -1,7 +1,7 @@
 <h1>Projects</h1>
 
 <div class="project-list">
-  <mat-card class="mat-elevation-z8" *ngIf="globalStateService.user | async">
+  <mat-card class="mat-elevation-z8" *ngIf="globalStateService.$user | async">
     <button mat-icon-button class="add-project-button">
       <mat-icon [inline]=" true">add</mat-icon>
     </button>

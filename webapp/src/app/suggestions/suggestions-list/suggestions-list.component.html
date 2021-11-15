@@ -21,14 +21,27 @@
       <button mat-flat-button [color]="suggestion.liked ? 'primary' : ''" (click)="likeClick(i, suggestion)">
         <mat-icon>thumb_up</mat-icon> {{suggestion.likes}} Like{{suggestion.likes === 1 ? '' :'s'}}
       </button>
-      <button mat-button *ngIf="(globalStateService.user | async)?._id === suggestion.author._id"
+      <button mat-flat-button (click)="suggestionComments.opened = !suggestionComments.opened"
+        *ngIf="suggestionComments.opened">
+        <mat-icon>comments_disabled</mat-icon>
+        Hide comments
+      </button>
+      <button mat-flat-button (click)="suggestionComments.opened = !suggestionComments.opened"
+        *ngIf="!suggestionComments.opened">
+        <mat-icon>comment</mat-icon>
+        Show {{suggestion.comments}} comment{{suggestion.comments === 1 ? '' : 's'}}
+      </button>
+      <button mat-button *ngIf="(globalStateService.$user | async)?._id === suggestion.author._id"
         [routerLink]="['edit', suggestion._id]">
         <mat-icon>edit</mat-icon> Edit
       </button>
-      <button mat-button *ngIf="(globalStateService.user | async)?._id === suggestion.author._id" color="warn"
+      <button mat-button *ngIf="(globalStateService.$user | async)?._id === suggestion.author._id" color="warn"
         (click)="deleteSuggestion(i, suggestion._id)">
         <mat-icon>delete</mat-icon> Delete
       </button>
     </mat-card-actions>
+    <app-suggestions-comments #suggestionComments [opened]="false" [suggestiondId]="suggestion._id"
+      [commentCount]="suggestion.comments">
+    </app-suggestions-comments>
   </mat-card>
 </section>

@@ -18,6 +18,7 @@ import { CreateEditProjectComponent } from './pages/projects/create-edit-project
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
 import { SharedModule } from './shared/shared.module';
+import { ReversePipe } from './pipes/reverse.pipe';
 
 @NgModule({
   declarations: [

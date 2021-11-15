@@ -19,19 +19,19 @@ export class LoadingInterceptor implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    this._globalStateService.loading.next(
-      this._globalStateService.loading.value + 1
+    this._globalStateService.$loading.next(
+      this._globalStateService.$loading.value + 1
     );
     return next.handle(request).pipe(
       filter((ev: HttpEvent<any>) => ev instanceof HttpResponse),
       tap((_: HttpEvent<any>) => {
-        this._globalStateService.loading.next(
-          this._globalStateService.loading.value - 1
+        this._globalStateService.$loading.next(
+          this._globalStateService.$loading.value - 1
         );
       }),
       catchError((ev) => {
-        this._globalStateService.loading.next(
-          this._globalStateService.loading.value - 1
+        this._globalStateService.$loading.next(
+          this._globalStateService.$loading.value - 1
         );
         throw ev;
       })

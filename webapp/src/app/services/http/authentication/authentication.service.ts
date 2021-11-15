@@ -19,12 +19,12 @@ export class AuthenticationService {
   public getAuthenticationStatus() {
     return this.http
       .get<any>(`${this._apiUrl}/authentication`)
-      .pipe(tap((user) => this.globalStateService.user.next(user)));
+      .pipe(tap((user) => this.globalStateService.$user.next(user)));
   }
 
   public deleteAuthentication(): Observable<void> {
     return this.http
       .delete<void>(`${this._apiUrl}/authentication`)
-      .pipe(tap(() => this.globalStateService.user.next(undefined)));
+      .pipe(tap(() => this.globalStateService.$user.next(undefined)));
   }
 }

@@ -1,7 +1,7 @@
 <h1>Blog
   <span class="spacer"></span>
 </h1>
-<a mat-button [routerLink]="['new']" *ngIf="globalStateService.user | async" color="accent">
+<a mat-button [routerLink]="['new']" *ngIf="globalStateService.$user | async" color="accent">
   <mat-icon>add</mat-icon> Create new blog entry
 </a>
 
@@ -32,7 +32,7 @@
       <a mat-chip *ngFor="let tag of blogEntry.tags" [routerLink]="['.']" [queryParams]="{ tags: [tag]}">{{tag}}</a>
     </mat-chip-list>
   </mat-card-content>
-  <mat-card-actions *ngIf="globalStateService.user | async" align="end">
+  <mat-card-actions *ngIf="globalStateService.$user | async" align="end">
     <button mat-button color="accent" [routerLink]="['edit', blogEntry._id]">
       <mat-icon>edit</mat-icon> Edit
     </button>

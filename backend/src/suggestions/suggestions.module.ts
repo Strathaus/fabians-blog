@@ -4,6 +4,11 @@ import { User, UserSchema } from '../models/user/user';
 import { Suggestion, SuggestionSchema } from './models/suggestion.model';
 import { SuggestionsController } from './suggestions.controller';
 import { SuggestionsService } from './suggestions.service';
+import { SuggestionCommentsModule } from './suggestion-comments/suggestion-comments.module';
+import {
+  SuggestionComment,
+  SuggestionCommentSchema,
+} from './suggestion-comments/models/suggestion-comment.model';
 
 @Module({
   imports: [
@@ -19,6 +24,13 @@ import { SuggestionsService } from './suggestions.service';
         schema: UserSchema,
       },
     ]),
+    MongooseModule.forFeature([
+      {
+        name: SuggestionComment.name,
+        schema: SuggestionCommentSchema,
+      },
+    ]),
+    SuggestionCommentsModule,
   ],
   controllers: [SuggestionsController],
   providers: [SuggestionsService],

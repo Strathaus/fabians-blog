@@ -6,8 +6,8 @@ import { IUser } from 'src/app/models/user/user.interface';
   providedIn: 'root',
 })
 export class GlobalStateService {
-  public user = new ReplaySubject<IUser>();
-  public loading = new BehaviorSubject<number>(0);
+  public $user = new ReplaySubject<IUser>();
+  public $loading = new BehaviorSubject<number>(0);
 
   constructor() {}
 }

@@ -5,15 +5,22 @@ import { SuggestionsRoutingModule } from './suggestions-routing.module';
 import { CreateEditSuggestionComponent } from './create-edit-suggestion/create-edit-suggestion.component';
 import { MaterialModule } from '../lib/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SuggestionsCommentsComponent } from './suggestions-list/suggestions-comments/suggestions-comments.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
-  declarations: [SuggestionsListComponent, CreateEditSuggestionComponent],
+  declarations: [
+    SuggestionsListComponent,
+    CreateEditSuggestionComponent,
+    SuggestionsCommentsComponent,
+  ],
   imports: [
     CommonModule,
     SuggestionsRoutingModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
 })
 export class SuggestionsModule {}

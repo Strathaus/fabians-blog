@@ -10,6 +10,7 @@ import { LoggingInterceptor } from '@src/interceptors/logging.interceptor';
 import { ConfigModule } from '@nestjs/config';
 import { TagsModule } from '@src/tags/tags.module';
 import { SuggestionsModule } from '@src/suggestions/suggestions.module';
+import { SuggestionCommentsModule } from './suggestions/suggestion-comments/suggestion-comments.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { SuggestionsModule } from '@src/suggestions/suggestions.module';
     BlogsModule,
     TagsModule,
     SuggestionsModule,
+    SuggestionCommentsModule,
   ],
   controllers: [],
   providers: [
